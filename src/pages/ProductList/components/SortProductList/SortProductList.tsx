@@ -1,24 +1,21 @@
 import classNames from 'classnames'
 import { sortBy, order as orderConstant } from 'src/constants/product'
-import { QueryConfig } from '../ProductList'
 import { ProductListConfig } from 'src/types/product.type'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import path from 'src/constants/path'
 import { omit } from 'lodash'
 interface Props {
   queryConfig: QueryConfig
   pageSize: number
 }
-
 export default function SortProductList({ queryConfig, pageSize }: Props) {
   const page = Number(queryConfig.page)
   const { sort_by = sortBy.createdAt, order } = queryConfig
   const navigate = useNavigate()
-
   const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
     return sort_by === sortByValue
   }
-
   const handleSort = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
     navigate({
       pathname: path.home,
@@ -33,7 +30,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
       ).toString()
     })
   }
-
   const handlePriceOrder = (orderValue: Exclude<ProductListConfig['order'], undefined>) => {
     navigate({
       pathname: path.home,
@@ -44,13 +40,11 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
       }).toString()
     })
   }
-
   return (
     <div className='bg-gray-300/40 py-4 px-3'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
         <div className='flex flex-wrap items-center gap-2'>
           <div>Sắp xếp theo</div>
-
           <button
             className={classNames('h-8 px-4 text-center text-sm capitalize ', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
@@ -60,7 +54,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           >
             Phổ biến
           </button>
-
           <button
             className={classNames('h-8 px-4 text-center text-sm capitalize ', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createdAt),
@@ -70,7 +63,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           >
             Mới nhất
           </button>
-
           <button
             className={classNames('h-8 px-4 text-center text-sm capitalize ', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.sold),
@@ -91,7 +83,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             <option value='' disabled className='bg-white text-black'>
               Giá
             </option>
-
             <option value={orderConstant.asc} className='bg-white text-black'>
               Giá: Thấp đến cao
             </option>
@@ -100,13 +91,11 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             </option>
           </select>
         </div>
-
         <div className='flex items-center'>
           <div>
             <span className='text-orange'>{page}</span>
             <span>/{pageSize}</span>
           </div>
-
           <div className='ml-2 flex'>
             {page === 1 ? (
               <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-tl-sm rounded-bl-sm bg-white/60  shadow hover:bg-slate-100'>

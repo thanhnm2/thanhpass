@@ -1,9 +1,7 @@
 import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { AnyObject } from 'yup/lib/types'
-
 type Rules = { [key in 'email' | 'password' | 'confirm_password']?: RegisterOptions }
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   email: {
@@ -57,7 +55,6 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
         : undefined
   }
 })
-
 function testPriceMinMax(this: yup.TestContext<AnyObject>) {
   const { price_max, price_min } = this.parent as { price_min: string; price_max: string }
   if (price_min !== '' && price_max !== '') {
@@ -65,7 +62,6 @@ function testPriceMinMax(this: yup.TestContext<AnyObject>) {
   }
   return price_min !== '' || price_max !== ''
 }
-
 export const schema = yup.object({
   email: yup
     .string()
@@ -93,7 +89,8 @@ export const schema = yup.object({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
     test: testPriceMinMax
-  })
+  }),
+  name: yup.string().trim().required('Tên sản phẩm là bắt buộc')
 })
 
 export type Schema = yup.InferType<typeof schema>
