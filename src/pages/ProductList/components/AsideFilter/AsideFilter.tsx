@@ -4,13 +4,13 @@ import Button from 'src/components/Button'
 import InputNumber from 'src/components/InputNumber'
 import path from 'src/constants/path'
 import { Category } from 'src/types/category.type'
-import { QueryConfig } from '../../ProductList'
 import { useForm, Controller } from 'react-hook-form'
 import { Schema, schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NoUndefinedField } from 'src/types/utils.type'
 import RatingStars from '../RatingStars'
 import { omit } from 'lodash'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig
@@ -48,14 +48,12 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       }).toString()
     })
   })
-
   const handleRemoveAll = () => {
     navigate({
       pathname: path.home,
       search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'rating_filter', 'category'])).toString()
     })
   }
-
   return (
     <div className='py-4'>
       <Link
@@ -183,10 +181,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
       <div className='text-sm'>Đánh giá</div>
-
       <RatingStars queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
-
       <Button
         onClick={handleRemoveAll}
         className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'

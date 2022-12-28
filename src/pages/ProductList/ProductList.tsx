@@ -7,9 +7,7 @@ import { ProductListConfig } from 'src/types/product.type'
 import AsideFilter from './components/AsideFilter'
 import Product from './components/Product/Product'
 import SortProductList from './components/SortProductList'
-export type QueryConfig = {
-  [key in keyof ProductListConfig]: string
-}
+
 export default function ProductList() {
   const queryConfig = useQueryConfig()
 
@@ -18,7 +16,8 @@ export default function ProductList() {
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
   })
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
