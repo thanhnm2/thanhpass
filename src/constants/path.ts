@@ -1,6 +1,9 @@
 const path = {
   home: '/',
   profile: '/profile',
+  user: '/user',
+  changePassword: '/user/password',
+  hitoryPurchase: '/user/purchase',
   login: '/login',
   register: '/register',
   logout: '/logout',

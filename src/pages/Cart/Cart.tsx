@@ -1,13 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import React, { useContext, useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
-
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import produce from 'immer'
 import { keyBy } from 'lodash'
 import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/app.context'
@@ -15,7 +12,7 @@ import noproduct from 'src/assets/images/no-product.png'
 import purchaseApi from 'src/apis/purchases.api'
 import { purchasesStatus } from 'src/constants/purchases'
 import { Purchase } from 'src/types/purchases.type'
-
+import { produce } from 'immer'
 export default function Cart() {
   const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
   const { data: purchasesInCartData, refetch } = useQuery({
@@ -66,6 +63,10 @@ export default function Cart() {
   )
 
   useEffect(() => {
+    // toast.success('test', {
+    //   position: 'top-center',
+    //   autoClose: 1000
+    // })
     setExtendedPurchases((prev) => {
       const extendedPurchasesObject = keyBy(prev, '_id')
       return (
