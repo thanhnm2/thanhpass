@@ -23,6 +23,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(function Inpu
     const { value } = event.target
 
     if (/^\d+$/.test(value) || value === '') {
+      //nếu nó là số hoặc rỗng thì onchange truyền vào mới chạy còn ko thì ko chạy
       // Thực thi onChange callback từ bên ngoài truyền vào props
       onChange && onChange(event)
       // Cập nhật localValue state
